@@ -73,7 +73,6 @@ For Users
 📖 Plain Language Explanations - No technical jargon
 🔒 Privacy-First Design - No permanent storage of checked content
 📱 Mobile-Responsive - Works on desktop, tablet, and smartphone
-🌐 Bilingual Support - English and Vietnamese
 
 For Researchers
 
@@ -139,36 +138,6 @@ Simplicity is essential: 66.7% of users want clear risk levels over technical de
 Privacy is paramount: 21.4% fear AI-based tools might leak personal data
 Rule-based detection is viable: Achieves 70-80% accuracy for known threat patterns
 
-📄 Full research methodology and findings available in project documentation
-
-🏗️ Architecture
-┌─────────────────────────────────────────────────────────────┐
-│                      User Interface (Web)                    │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │ URL Check    │  │ Email Check  │  │ Phone Check  │      │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘      │
-└─────────┼──────────────────┼──────────────────┼─────────────┘
-          │                  │                  │
-          └──────────────────┼──────────────────┘
-                             │
-                    ┌────────▼────────┐
-                    │   API Gateway   │
-                    └────────┬────────┘
-                             │
-          ┌──────────────────┼──────────────────┐
-          │                  │                  │
-    ┌─────▼─────┐     ┌─────▼─────┐     ┌─────▼─────┐
-    │   URL     │     │   Email   │     │   Phone   │
-    │ Detection │     │ Detection │     │ Detection │
-    │  Module   │     │  Module   │     │  Module   │
-    └─────┬─────┘     └─────┬─────┘     └─────┬─────┘
-          │                  │                  │
-          └──────────────────┼──────────────────┘
-                             │
-                    ┌────────▼────────┐
-                    │ Risk Scoring    │
-                    │    Engine       │
-                    └────────┬────────┘
                              │
                     ┌────────▼────────┐
                     │ Results Display │
