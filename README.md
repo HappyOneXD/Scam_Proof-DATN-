@@ -137,9 +137,3 @@ Transparency builds trust: Users prefer systems that explain why content is risk
 Simplicity is essential: 66.7% of users want clear risk levels over technical details
 Privacy is paramount: 21.4% fear AI-based tools might leak personal data
 Rule-based detection is viable: Achieves 70-80% accuracy for known threat patterns
-
-                             │
-                    ┌────────▼────────┐
-                    │ Results Display │
-                    │  (Low/Med/High) │
-                    └─────────────────┘
