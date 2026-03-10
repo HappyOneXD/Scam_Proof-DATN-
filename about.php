@@ -8,9 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
-    <title>Phone Number Scan</title>
+    <title>About Us - Scam & Threat Detection Platform</title>
 </head>
 <body class="bg-black text-white">
+    <!-- NAVBAR (same as index) -->
     <div class="container-fluid bg-black">
         <nav class="navbar navbar-expand-lg bg-transparent">
             <div class="d-flex justify-content-center align-items-center position-relative mx-auto"
@@ -38,7 +39,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav px-5 w-100">
                     <li class="nav-item me-3">
                         <a class="nav-link fs-4" href="./index.php">HOME</a>
@@ -87,36 +88,109 @@
         </nav>
     </div>
 
-    <section class="hero-video position-relative w-100 bg-dark" style="height: 40vh; overflow: hidden;">
+    <!-- HERO -->
+    <section class="hero-video position-relative w-100 bg-dark" style="height: 50vh; overflow: hidden;">
         <img src="./asset/glob.gif" alt="background" id="bg-video" style="opacity: 0.5;" />
         <div class="hero-overlay-text d-flex flex-column justify-content-center align-items-center text-center">
-            <h1 class="boiler-title">Phone Number Scan</h1>
-            <h2 class="boiler-subtitle font-monospace">Check suspicious callers and SMS senders.</h2>
+            <h1 class="boiler-title">About Our Platform</h1>
+            <h2 class="boiler-subtitle font-monospace">Why we care about scams, fraud and online threats.</h2>
         </div>
     </section>
 
+    <!-- CONTENT -->
     <div class="bg-dark py-5">
         <div class="container text-white">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="p-4 bg-secondary bg-opacity-25 border border-light rounded">
-                        <form method="post" action="scan.php">
-                            <input type="hidden" name="type" value="phone">
-                            <div class="mb-3">
-                                <label for="phoneInput" class="form-label">Phone number</label>
-                                <input type="tel" class="form-control" id="phoneInput"
-                                       name="phone" placeholder="+1234567890" required>
-                            </div>
-                            <button type="submit" class="btn btn-light w-100">Scan Number</button>
-                        </form>
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="mb-3 text-center">Our Mission</h2>
+                    <p class="lead text-center">
+                        This project was built to make it easier for everyday users to spot suspicious
+                        phone numbers, URLs and emails before they become a problem.  
+                        Instead of waiting until someone gets scammed, we want to give people a
+                        simple way to double-check things first.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card bg-secondary bg-opacity-25 border-light h-100 text-white">
+                        <div class="card-body">
+                            <h5 class="card-title text-white">What We Do</h5>
+                            <p class="card-text text-white">
+                                We provide basic tools to analyse suspicious content:
+                                unknown phone numbers, strange links and sketchy emails.
+                                The goal is to give you a quick risk signal before you interact
+                                with anything that feels off.
+                            </p>
+                        </div>
                     </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card bg-secondary bg-opacity-25 border-light h-100 text-white">
+                        <div class="card-body">
+                            <h5 class="card-title text-white">Who This Is For</h5>
+                            <p class="card-text text-white">
+                                This platform is designed for anyone who wants to be a little more
+                                careful online: students, families, small businesses, and people
+                                who are just tired of scam calls and phishing emails.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card bg-secondary bg-opacity-25 border-light h-100 text-white">
+                        <div class="card-body">
+                            <h5 class="card-title text-white">How It’s Built</h5>
+                            <p class="card-text text-white">
+                                Under the hood, this is a web project using PHP and Bootstrap, created
+                                as a learning exercise in secure design, input handling and threat
+                                awareness. Features will evolve over time as we experiment and improve.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Values / Disclaimer -->
+            <div class="row mb-4">
+                <div class="col-lg-10 mx-auto">
+                    <h3 class="mb-3 text-center">What We Believe</h3>
+                    <ul class="list-group list-group-flush bg-transparent">
+                        <li class="list-group-item bg-transparent text-white border-secondary">
+                            Online safety should be accessible, not only for technical people.
+                        </li>
+                        <li class="list-group-item bg-transparent text-white border-secondary">
+                            Education is one of the best defenses against scams and social engineering.
+                        </li>
+                        <li class="list-group-item bg-transparent text-white border-secondary">
+                            No tool is perfect, so users should always stay skeptical and double-check
+                            before sharing sensitive information.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="small text-muted">
+                        Note: This platform is for educational and awareness purposes only.  
+                        It does not guarantee 100% accurate detection and should be used as
+                        one extra layer of caution, not as the only security decision-maker.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- FOOTER DISCLAIMER -->
     <div class="container-fluid bg-black text-center p-3">
-        <p class="sub mb-0">Disclaimer: This website is for educational purposes only. We do not condone or support any illegal activities. Use this tool responsibly and at your own risk.</p>
+        <p class="sub mb-0">
+            Disclaimer: This website is for educational purposes only. We do not condone or support any illegal activities.
+            Use this tool responsibly and at your own risk.
+        </p>
     </div>
 </body>
 </html>
@@ -131,7 +205,7 @@
     }
     .hero-video {
         width: 100vw;
-        height: 40vh;
+        height: 50vh;
         overflow: hidden;
         position: relative;
     }
@@ -174,7 +248,9 @@
         margin-top: 0;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     }
-    .sub { color: #fff; }
+    .sub {
+        color: #fff;
+    }
     .navbar,
     .navbar-brand,
     .nav-link,

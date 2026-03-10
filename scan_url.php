@@ -39,25 +39,49 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav w-100 justify-content-evenly px-5">
-                    <li class="nav-item">
+                <ul class="navbar-nav px-5 w-100">
+                    <li class="nav-item me-3">
                         <a class="nav-link fs-4" href="./index.php">HOME</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item me-3">
                         <a class="nav-link fs-4" href="./scan_email.php">EMAIL SCAN</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item me-3">
                         <a class="nav-link fs-4" href="./scan_phone.php">PHONE NUMBER SCAN</a>
-                    </li>                    
-                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item me-3">
                         <a class="nav-link fs-4" href="./scan_url.php">URL SCAN</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-4" href="./contact.html">CONTACT</a>
+                    <li class="nav-item me-3">
+                        <a class="nav-link fs-4 active" aria-current="page" href="./about.php">ABOUT US</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link fs-4" href="./auth/login.php">LOGIN</a>
-                    </li>
+
+                    <li class="nav-item flex-grow-1"></li>
+
+                    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link fs-4 dropdown-toggle" href="#" id="userDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end bg-dark border-light" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item text-white" href="./user.php">User Info / History</a>
+                                </li>
+                                <li><hr class="dropdown-divider border-secondary"></li>
+                                <li>
+                                    <a class="dropdown-item text-white" href="./auth/logout.php">Log out</a>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item me-3">
+                            <a class="nav-link fs-4" href="./auth/signup.php">SIGN UP</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-4" href="./auth/login.php">SIGN IN</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </nav>

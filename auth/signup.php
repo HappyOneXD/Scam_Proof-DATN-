@@ -2,57 +2,43 @@
 session_start();
 require_once '../connect_db.php';
 
-$error = '';
-
-// already logged in → go home
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    header('Location: ../index.php');
-    exit;
-}
+$error   = '';
+$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email    = trim($_POST['email'] ?? '');
+    $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    if ($email === '' || $password === '') {
-        $error = 'Please enter username and password.';
+    if ($username === '' || $password === '') {
+        $error = 'Username and password are required.';
     } else {
-        // 1) Try to find user in `user` table with PLAIN TEXT password
-        $stmt = $connect->prepare('SELECT id, username FROM user WHERE username = ? AND password = ?');
+        // check if username already exists in `user` table
+        $stmt = $connect->prepare('SELECT id FROM user WHERE username = ?');
         if ($stmt) {
-            $stmt->bind_param('ss', $email, $password);
+            $stmt->bind_param('s', $username);
             $stmt->execute();
             $stmt->store_result();
 
-            if ($stmt->num_rows === 1) {
-                $stmt->bind_result($id, $username);
-                $stmt->fetch();
-
-                $_SESSION['logged_in'] = true;
-                $_SESSION['username']  = $username;
-                $_SESSION['user_id']   = $id;
-                $stmt->close();
-
-                header('Location: ../index.php');
-                exit;
+            if ($stmt->num_rows > 0) {
+                $error = 'Username is already taken. Please choose another one.';
+            } else {
+                // store password as PLAIN TEXT (matches current login logic)
+                $insert = $connect->prepare('INSERT INTO user (username, password) VALUES (?, ?)');
+                if ($insert) {
+                    $insert->bind_param('ss', $username, $password);
+                    if ($insert->execute()) {
+                        $success = 'Account created successfully. You can now sign in.';
+                    } else {
+                        $error = 'Error creating account. Please try again.';
+                    }
+                    $insert->close();
+                } else {
+                    $error = 'Database error (insert).';
+                }
             }
             $stmt->close();
         } else {
-            $error = 'Database error.';
-        }
-
-        // 2) Optional hardcoded admin account
-        if ($email === 'admin' && $password === 'admin123') {
-            $_SESSION['logged_in'] = true;
-            $_SESSION['username']  = $email;
-            $_SESSION['user_id']   = 0;
-            header('Location: ../index.php');
-            exit;
-        }
-
-        // 3) If nothing matched
-        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-            $error = 'Invalid username or password.';
+            $error = 'Database error (select).';
         }
     }
 }
@@ -61,18 +47,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign In - Scam & Threat Detection Platform</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-          crossorigin="anonymous">
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-            crossorigin="anonymous"></script>
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+    <title>Sign Up - Scam & Threat Detection Platform</title>
     <style>
         body {
             background-color: #000;
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        .rotate-text { animation: spin 10s linear infinite; transform-origin: center; }
+        @keyframes spin { 100% { transform: rotate(-360deg); } }
+
         .auth-container {
             min-height: 100vh;
             display: flex;
@@ -184,53 +174,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-<div class="auth-container">
-    <div class="back-link">
-        <a href="../index.php">
-            <span>←</span> Back
-        </a>
-    </div>
+    <div class="auth-container">
+        <div class="back-link">
+            <a href="../index.php">
+                <span>←</span> Back
+            </a>
+        </div>
 
-    <div class="w-100 d-flex flex-column align-items-center">
-        <div class="auth-card">
-            <h1 class="auth-title">Sign In</h1>
-            <p class="auth-subtitle">Access your account</p>
+        <div class="w-100 d-flex flex-column align-items-center">
+            <div class="auth-card">
+                <h1 class="auth-title">Create Account</h1>
+                <p class="auth-subtitle">Set up your username and password</p>
 
-            <?php if ($error): ?>
-                <div class="alert alert-danger py-2 mb-3">
-                    <?php echo htmlspecialchars($error); ?>
+                <?php if ($error): ?>
+                    <div class="alert alert-danger"><?php echo $error; ?></div>
+                <?php endif; ?>
+
+                <?php if ($success): ?>
+                    <div class="alert alert-success"><?php echo $success; ?></div>
+                <?php endif; ?>
+
+                <form method="POST" action="">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text"
+                               class="form-control"
+                               id="username"
+                               name="username"
+                               placeholder="Choose a username"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password"
+                               class="form-control"
+                               id="password"
+                               name="password"
+                               placeholder="Create a password"
+                               required>
+                    </div>
+
+                    <button type="submit" class="btn-auth">Sign Up</button>
+                </form>
+
+                <div class="switch-link">
+                    Already have an account? <a href="./login.php">Sign in</a>
                 </div>
-            <?php endif; ?>
-
-            <form method="POST" action="">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Username</label>
-                    <input type="text"
-                           class="form-control"
-                           id="email"
-                           name="email"
-                           placeholder="Enter your username"
-                           required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password"
-                           class="form-control"
-                           id="password"
-                           name="password"
-                           placeholder="Enter your password"
-                           required>
-                </div>
-
-                <button type="submit" class="btn-auth">Sign In</button>
-            </form>
-
-            <div class="switch-link">
-                Don't have an account? <a href="./signup.php">Sign up</a>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
