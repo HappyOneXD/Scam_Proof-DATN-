@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="login-container">
         <div class="back-link">
-            <a href="../index.html">
+            <a href="../index.php">
                 <span>←</span> Back
             </a>
         </div>

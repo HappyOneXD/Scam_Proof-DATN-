@@ -1,26 +1,3 @@
-<?php
-// session_start();  // no longer needed unless you want to customise
-$type   = $_POST['type'] ?? '';
-$result = '';
-switch ($type) {
-    case 'phone':
-        $phone = $_POST['phone'] ?? '';
-        $result = "Received phone number: " . htmlspecialchars($phone);
-        break;
-    case 'url':
-        $url = $_POST['url'] ?? '';
-        $result = "Received URL: " . htmlspecialchars($url);
-        break;
-    case 'email':
-        $email_address = $_POST['email_address'] ?? '';
-        $email_content = $_POST['email_content'] ?? '';
-        $result = "Received email address: " . htmlspecialchars($email_address)
-                . "<br>Content:<br>" . nl2br(htmlspecialchars($email_content));
-        break;
-    default:
-        $result = "Unknown scan type.";
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,9 +8,9 @@ switch ($type) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
-    <title>Home</title>
+    <title>URL Scan</title>
 </head>
-<body>
+<body class="bg-black text-white">
     <div class="container-fluid bg-black">
         <nav class="navbar navbar-expand-lg bg-transparent">
             <div class="d-flex justify-content-center align-items-center position-relative mx-auto"
@@ -85,78 +62,38 @@ switch ($type) {
             </div>
         </nav>
     </div>
-    <section class="hero-video position-relative w-100  bg-dark" style="height: 70vh; overflow: hidden;">
+
+    <section class="hero-video position-relative w-100 bg-dark" style="height: 40vh; overflow: hidden;">
         <img src="./asset/glob.gif" alt="background" id="bg-video" style="opacity: 0.5;" />
         <div class="hero-overlay-text d-flex flex-column justify-content-center align-items-center text-center">
-            <h1 class="boiler-title ">Scam & Threat Detection Platform</h1>
-            <h2 class="boiler-subtitle font-monospace">Protect the people from scams and threats, one device at a time.</h2>
+            <h1 class="boiler-title">URL Scan</h1>
+            <h2 class="boiler-subtitle font-monospace">Check links before you click them.</h2>
         </div>
     </section>
-    
-   <div class="bg-dark py-5">
+
+    <div class="bg-dark py-5">
         <div class="container text-white">
-            <!-- Small introduction section -->
-            <div class="row mb-5">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="mb-3">Stay Ahead of Scammers</h2>
-                    <p class="lead">
-                        Our Scam & Threat Detection Platform helps you quickly check suspicious
-                        phone numbers, links, and emails before you trust them. Use the tools
-                        below to scan content and reduce the risk of phishing, fraud, and other
-                        online threats.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Quick action cards -->
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card bg-secondary bg-opacity-25 border-light h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Phone Number Scan</h5>
-                            <p class="card-text flex-grow-1">
-                                Check unknown callers and SMS senders to see if they might be
-                                associated with scams or spam.
-                            </p>
-                            <a href="scan_phone.php" class="btn btn-light mt-3">Scan a Phone Number</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card bg-secondary bg-opacity-25 border-light h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">URL Scan</h5>
-                            <p class="card-text flex-grow-1">
-                                Paste any link you are unsure about and quickly check if it looks
-                                suspicious before opening it.
-                            </p>
-                            <a href="scan_url.php" class="btn btn-light mt-3">Scan a URL</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card bg-secondary bg-opacity-25 border-light h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Email Scan</h5>
-                            <p class="card-text flex-grow-1">
-                                Analyse sender details and email contents to detect signs of
-                                phishing and impersonation attacks.
-                            </p>
-                            <a href="scan_email.php" class="btn btn-light mt-3">Scan an Email</a>
-                        </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="p-4 bg-secondary bg-opacity-25 border border-light rounded">
+                        <form method="post" action="scan.php">
+                            <input type="hidden" name="type" value="url">
+                            <div class="mb-3">
+                                <label for="urlInput" class="form-label">URL</label>
+                                <input type="url" class="form-control" id="urlInput"
+                                       name="url" placeholder="https://example.com" required>
+                            </div>
+                            <button type="submit" class="btn btn-light w-100">Scan URL</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Disclaimers bottom page -->
+
     <div class="container-fluid bg-black text-center p-3">
         <p class="sub mb-0">Disclaimer: This website is for educational purposes only. We do not condone or support any illegal activities. Use this tool responsibly and at your own risk.</p>
-
     </div>
-
 </body>
 </html>
 
@@ -165,20 +102,15 @@ switch ($type) {
         animation: spin 10s linear infinite;
         transform-origin: center;
     }
-
     @keyframes spin {
-        100% {
-            transform: rotate(-360deg);
-        }
+        100% { transform: rotate(-360deg); }
     }
-
     .hero-video {
         width: 100vw;
-        height: 60vh;
+        height: 40vh;
         overflow: hidden;
         position: relative;
     }
-
     .hero-video #bg-video {
         width: 100vw;
         height: 100%;
@@ -188,7 +120,6 @@ switch ($type) {
         left: 0;
         z-index: 0;
     }
-
     .hero-overlay-text {
         position: absolute;
         top: 0;
@@ -203,9 +134,8 @@ switch ($type) {
         text-align: center;
         pointer-events: none;
     }
-
     .boiler-title {
-        font-size: 6vw;
+        font-size: 5vw;
         font-weight: 900;
         color: #fff;
         letter-spacing: 0.05em;
@@ -213,7 +143,6 @@ switch ($type) {
         line-height: 1;
         text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
     }
-
     .boiler-subtitle {
         font-size: 2vw;
         font-weight: 400;
@@ -221,11 +150,7 @@ switch ($type) {
         margin-top: 0;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     }
-
-    .sub {
-        color: #fff;
-    }
-
+    .sub { color: #fff; }
     .navbar,
     .navbar-brand,
     .nav-link,
@@ -233,7 +158,6 @@ switch ($type) {
         color: white !important;
         z-index: 1;
     }
-
     .navbar-nav .nav-link:hover {
         background: #fff;
         color: #000 !important;
