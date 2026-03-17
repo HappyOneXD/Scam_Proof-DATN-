@@ -107,6 +107,42 @@
                                 <input type="email" class="form-control" id="emailAddrInput"
                                        name="email_address" placeholder="user@example.com" required>
                             </div>
+
+                            <div class="mb-3">
+                                <label for="emailSubjectInput" class="form-label">Email subject</label>
+                                <input type="text" class="form-control" id="emailSubjectInput"
+                                       name="email_subject" placeholder="Subject line shown in your inbox" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Attachments (if any)</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="image" id="attImage" name="attachments[]">
+                                    <label class="form-check-label" for="attImage">
+                                        Images (JPG, PNG, etc.)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="pdf" id="attPdf" name="attachments[]">
+                                    <label class="form-check-label" for="attPdf">
+                                         Documents
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="video" id="attVideo" name="attachments[]">
+                                    <label class="form-check-label" for="attVideo">
+                                        Video files
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="other" id="attOther" name="attachments[]">
+                                    <label class="form-check-label" for="attOther">
+                                        Other / unknown file type
+                                    </label>
+                                </div>
+                                <small class="text-muted">You don’t need to upload files, just tell us what types were attached.</small>
+                            </div>
+
                             <div class="mb-3">
                                 <label for="emailContentInput" class="form-label">Email contents</label>
                                 <textarea class="form-control" id="emailContentInput"
